@@ -1,0 +1,49 @@
+# language: es
+# autor: Angel Henriquez
+# encoding: UTF-8
+
+@EditarComercio
+Característica: Realizar la edicion de un comercio en la aplicacion IPG MCS
+  Yo como usuario
+  Quiero realizar la edicion de comercio en la apliacion IPG MCS
+  Para poder realizar cambios en el comercio de ser necesario.
+
+  Antecedentes: Ingreso a la aplicacion IPG MCS
+    Dado que ingreso a la aplicacion IPG MCS
+    Cuando inicio sesion
+
+  @EditarComercioExitoso
+  Esquema del escenario: Realizar edicion de comercio exitoso en IPG MCS
+    Cuando realizo la busqueda del comercio por <criterioDeBusqueda>
+      |idTienda   |nombreLegal  |revendedor  |idTerminal   |idComercio  |fechaApertura  |
+      |<idTienda> |<nombreLegal>|<revendedor>|<idTerminal> |<idComercio>|<fechaApertura>|
+    Y edito la informacion del comercio
+      | mcc   | nombreLegal   | correo   | url   | moneda   | zonaHoraria   | estado   | dba   | direccion1   | direccion2   | ciudad   | codigoPostal   | codigoPais   | tipoContacto   | nombre   | correoContacto   | telefono   | fax   | servicio1   | servicio2   | servicio3   | puntoFinal   | idTerminal   | idComercio   | visa   | mastercard        | montoLimite   |
+      | <mcc> | <nombreLegal> | <correo> | <url> | <moneda> | <zonaHoraria> | <estado> | <dba> | <direccion1> | <direccion2> | <ciudad> | <codigoPostal> | <codigoPais> | <tipoContacto> | <nombre> | <correoContacto> | <telefono> | <fax> | <servicio1> | <servicio2> | <servicio3> | <puntoFinal> | <idTerminal> | <idComercio> | <visa> | <mastercard>      | <montoLimite> |
+    Entonces valido la edicion del comercio exitosa al visualizar el texto "Información comercio guardado correctamente"
+    Ejemplos:
+      | criterioDeBusqueda| revendedor    | idTienda | mcc  | nombreLegal   | correo               | url                     | moneda | zonaHoraria    | estado | dba             | direccion1   | direccion2 | ciudad            | codigoPostal | codigoPais   | tipoContacto | nombre       | correoContacto      | telefono   | fax      | servicio1                             |puntoFinal                  | idTerminal | idComercio  | visa | mastercard | montoLimite |
+      | Tienda            |   BANISTMO    | 19376079 | 5993 | ComercioAut   | comercio@dominio.com | http://www.banistmo.com | USD    | America/Panama | OPEN   | Comercioeditado | Albrook Mall | Panama     | Ciudad de Panama  | 07095        | Panama       | Director     | Carlos Perez | carlosp@dominio.com | 5076590012 | 880-5678 | Recurring Payments / Periodic Billing | B24 Banistmo VIA CAFEX UAT | T000001    | 64000000050 | Si   | Si         | 2500        |
+
+  @ValidarEdicionCamposObligatorios
+  Esquema del escenario: Realizar validacion de campos obligatorios al editar el comercio
+    Cuando realizo la busqueda del comercio por <criterioDeBusqueda>
+      | idTienda   | nombreLegal   | revendedor   | idTerminal   | idComercio   | fechaApertura   |
+      | <idTienda> | <nombreLegal> | <revendedor> | <idTerminal> | <idComercio> | <fechaApertura> |
+    Y edito la informacion del comercio
+      | revendedor   | idTienda   | mcc   | nombreLegal   | correo   | url   | moneda   | zonaHoraria   | estado   | dba   | direccion1   | direccion2   | ciudad   | codigoPostal   | codigoPais   | tipoContacto   | nombre   | correoContacto   | telefono   | fax   | servicio1   | servicio2   | servicio3   | puntoFinal   | idTerminal   | idComercio   | visa   | mastercard   | montoLimite   |
+      | <revendedor> | <idTienda> | <mcc> | <nombreLegal> | <correo> | <url> | <moneda> | <zonaHoraria> | <estado> | <dba> | <direccion1> | <direccion2> | <ciudad> | <codigoPostal> | <codigoPais> | <tipoContacto> | <nombre> | <correoContacto> | <telefono> | <fax> | <servicio1> | <servicio2> | <servicio3> | <puntoFinal> | <idTerminal> | <idComercio> | <visa> | <mastercard> | <montoLimite> |
+    Entonces valido despues de editar el comercio la informacion del <mensajeCampoObligatorio>
+    Ejemplos:
+      |criterioDeBusqueda| revendedor | idTienda  | mcc  | nombreLegal | correo             | url                     | moneda | zonaHoraria    | estado | dba      | direccion1  | direccion2 | ciudad   | codigoPostal | codigoPais | tipoContacto | nombre     | correoContacto     | telefono   | fax      | servicio1                     | servicio2                        | servicio3   | puntoFinal                 | idTerminal | idComercio  | visa | mastercard | montoLimite | mensajeCampoObligatorio                                    |
+      |Tienda            | BANISTMO   | 19376079  | 4214 |             | correo@dominio.com | http://www.banistmo.com | USD    | America/Panama | OPEN   | Comercio | Iguana Mall | Cocle      | Penonome | 07095        | Panama     | Director     | Juan Perez | jperez@dominio.com | 5076590012 | 774-5678 | Connect (Hosted Payment Page) | Credit Card (Brands and Options) | Payment URL | B24 Banistmo VIA CAFEX UAT | T000000    | 64000000055 | Si   | Si         | 9999        | Nombre Legal - Debe introducir un valor.                   |
+      |Tienda            | BANISTMO   | 19376079  | 4214 | Comercio001 | correo@dominio.com | http://www.banistmo.com | USD    | America/Panama | OPEN   |          | Iguana Mall | Cocle      | Penonome | 07095        | Panama     | Director     | Juan Perez | jperez@dominio.com | 5076590012 | 774-5678 | Connect (Hosted Payment Page) | Credit Card (Brands and Options) | Payment URL | B24 Banistmo VIA CAFEX UAT | T000000    | 64000000055 | Si   | Si         | 9999        | DBA - Debe introducir un valor.                            |
+      |Tienda            | BANISTMO   | 19376079  | 4214 | Comercio001 | correo@dominio.com | http://www.banistmo.com | USD    | America/Panama | OPEN   | Comercio |             | Cocle      | Penonome | 07095        | Panama     | Director     | Juan Perez | jperez@dominio.com | 5076590012 | 774-5678 | Connect (Hosted Payment Page) | Credit Card (Brands and Options) | Payment URL | B24 Banistmo VIA CAFEX UAT | T000000    | 64000000055 | Si   | Si         | 9999        | Direccion 1 - Debe introducir un valor.                    |
+      |Tienda            | BANISTMO   | 19376079  | 4214 | Comercio001 | correo@dominio.com | http://www.banistmo.com | USD    | America/Panama | OPEN   | Comercio | Iguana Mall | Cocle      |          | 07095        | Panama     | Director     | Juan Perez | jperez@dominio.com | 5076590012 | 774-5678 | Connect (Hosted Payment Page) | Credit Card (Brands and Options) | Payment URL | B24 Banistmo VIA CAFEX UAT | T000000    | 64000000055 | Si   | Si         | 9999        | Ciudad - Debe introducir un valor.                         |
+      |Tienda            | BANISTMO   | 19376079  | 4214 | Comercio001 | correo@dominio.com | http://www.banistmo.com | USD    | America/Panama | OPEN   | Comercio | Iguana Mall | Cocle      | Penonome |              | Panama     | Director     | Juan Perez | jperez@dominio.com | 5076590012 | 774-5678 | Connect (Hosted Payment Page) | Credit Card (Brands and Options) | Payment URL | B24 Banistmo VIA CAFEX UAT | T000000    | 64000000055 | Si   | Si         | 9999        | Codigo postal - Debe introducir un valor.                  |
+      |Tienda            | BANISTMO   | 19376079  | 4214 | Comercio001 | correo@dominio.com | http://www.banistmo.com | USD    | America/Panama | OPEN   | Comercio | Iguana Mall | Cocle      | Penonome | 07095        | Panama     | Director     |            | jperez@dominio.com | 5076590012 | 774-5678 | Connect (Hosted Payment Page) | Credit Card (Brands and Options) | Payment URL | B24 Banistmo VIA CAFEX UAT | T000000    | 64000000055 | Si   | Si         | 9999        | Nombre - Debe introducir un valor.                         |
+      |Tienda            | BANISTMO   | 19376079  | 4214 | Comercio001 | correo@dominio.com | http://www.banistmo.com | USD    | America/Panama | OPEN   | Comercio | Iguana Mall | Cocle      | Penonome | 07095        | Panama     | Director     | Juan Perez |                    | 5076590012 | 774-5678 | Connect (Hosted Payment Page) | Credit Card (Brands and Options) | Payment URL | B24 Banistmo VIA CAFEX UAT | T000000    | 64000000055 | Si   | Si         | 9999        | Correo electronico - Debe introducir un valor.             |
+      |Tienda            | BANISTMO   | 19376079  | 4214 | Comercio001 | correo@dominio.com | http://www.banistmo.com | USD    | America/Panama | OPEN   | Comercio | Iguana Mall | Cocle      | Penonome | 07095        | Panama     | Director     | Juan Perez | jperez@dominio.com |            | 774-5678 | Connect (Hosted Payment Page) | Credit Card (Brands and Options) | Payment URL | B24 Banistmo VIA CAFEX UAT | T000000    | 64000000055 | Si   | Si         | 9999        | Telefono - Debe introducir un valor                        |
+      |Tienda            | BANISTMO   | 19376079  | 4214 | Comercio001 | correo@dominio.com | http://www.banistmo.com | USD    | America/Panama | OPEN   | Comercio | Iguana Mall | Cocle      | Penonome | 07095        | Panama     | Director     | Juan Perez | jperez@dominio.com | 5076590012 | 774-5678 | Connect (Hosted Payment Page) | Credit Card (Brands and Options) | Payment URL | B24 Banistmo VIA CAFEX UAT |            | 64000000055 | Si   | Si         | 9999        | ID terminal no debe ser nulo                               |
+      |Tienda            | BANISTMO   | 19376079  | 4214 | Comercio001 | correo@dominio.com | http://www.banistmo.com | USD    | America/Panama | OPEN   | Comercio | Iguana Mall | Cocle      | Penonome | 07095        | Panama     | Director     | Juan Perez | jperez@dominio.com | 5076590012 | 774-5678 | Connect (Hosted Payment Page) | Credit Card (Brands and Options) | Payment URL | B24 Banistmo VIA CAFEX UAT | T000000    |             | Si   | Si         | 9999        | ID Comercio no debe ser nulo                               |
+

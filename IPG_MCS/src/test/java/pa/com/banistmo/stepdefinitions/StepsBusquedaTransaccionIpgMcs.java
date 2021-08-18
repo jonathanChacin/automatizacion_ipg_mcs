@@ -52,4 +52,5 @@ public class StepsBusquedaTransaccionIpgMcs {
         theActorInTheSpotlight().should(seeThat(SeMuestreMensajeDeCampoObligatorio.enBuscarTransaccionIpgMcs(mensajeCampoObligatorio))
                 .orComplainWith(BusquedaTransaccionException.class,MENSAJE_BUSQUEDA_TRANSACCION_CAMPOS_OBLIGATORIOS));
     }
+
 }
