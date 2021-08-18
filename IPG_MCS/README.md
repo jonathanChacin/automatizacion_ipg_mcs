@@ -18,7 +18,10 @@ Automatización de pruebas funcionales de la aplicacion IPG MCS, siguiendo el pa
 - Inicio de sesion
 - Registro de comercio
 - Busqueda de comercio
+- Editar comercio
 - Busqueda de transaccion
+- Encontrar Usuarios API
+
 
 
 ## Autor
